@@ -1,15 +1,15 @@
 package com.kainos.ea;
 
 import com.kainos.ea.employee.Employee;
+import com.kainos.ea.employee.SalesEmployee;
+import com.kainos.ea.teams.SalesTeam;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Sets up database connection using stored credentials (from HRSystemDB.properties)
@@ -44,7 +44,11 @@ public class HRSystemDB {
         return null;
     }
 
-    public static List<Employee> getAllEmployees(){ //generic get method, to be adapted once database populated
+    /**
+     * Function to retrieve list of all employees in database.
+     * @return List of all employees.
+     */
+    public static List<Employee> getAllEmployees(){
         if (c == null) {
             c = getConnection();
         }
@@ -70,4 +74,55 @@ public class HRSystemDB {
         }
         return employees;
     }
+
+    /**
+     * Function to retrieve list of all sales employees in database.
+     * @return List of all sales employees.
+     */
+    public static List<SalesEmployee> getAllSalesEmployees(){
+        if (c == null) {
+            c = getConnection();
+        }
+        List<SalesEmployee> salesEmployees = new ArrayList<>();
+        try {
+            Statement s = c.createStatement();
+            ResultSet rows = s.executeQuery(
+                    "SELECT Employee.employee_id,first_name, last_name, nin, salary, department, email, phone_number, total_sales_monthly, commission FROM Employee JOIN Sales WHERE Employee.employee_id=Sales.employee_id;");
+            while (rows.next()) {
+                salesEmployees.add(new SalesEmployee(
+                        rows.getInt("employee_id"),
+                        rows.getString("first_name"),
+                        rows.getString("last_name"),
+                        rows.getString("nin"),
+                        rows.getFloat("salary"),
+                        rows.getString("department"),
+                        rows.getString("email"),
+                        rows.getString("phone_number"),
+                        rows.getFloat("commission"),
+                        rows.getFloat("total_sales_monthly")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesEmployees;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the employee management system? You can exit anytime by typing exit!");
+        Scanner userInput = new Scanner(System.in);
+        String input = "";
+
+        while(!input.equalsIgnoreCase("exit")){
+            System.out.println("Please select a team 'Sales Team'");
+            input = userInput.nextLine();
+            System.out.println(input);
+
+            if(input.equalsIgnoreCase("sales team")){
+                SalesTeam st = new SalesTeam();
+                st.handleUserInput();
+            }
+        }
+    }
+
 }
