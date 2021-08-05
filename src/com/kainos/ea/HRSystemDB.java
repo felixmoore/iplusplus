@@ -1,6 +1,7 @@
 package com.kainos.ea;
 
 import com.kainos.ea.employee.Employee;
+import com.kainos.ea.employee.SalesEmployee;
 import com.kainos.ea.teams.SalesTeam;
 
 import java.io.FileInputStream;
@@ -43,7 +44,11 @@ public class HRSystemDB {
         return null;
     }
 
-    public static List<Employee> getAllEmployees(){ //generic get method, to be adapted once database populated
+    /**
+     * Function to retrieve list of all employees in database.
+     * @return List of all employees.
+     */
+    public static List<Employee> getAllEmployees(){
         if (c == null) {
             c = getConnection();
         }
@@ -68,6 +73,39 @@ public class HRSystemDB {
             e.printStackTrace();
         }
         return employees;
+    }
+
+    /**
+     * Function to retrieve list of all sales employees in database.
+     * @return List of all sales employees.
+     */
+    public static List<SalesEmployee> getAllSalesEmployees(){
+        if (c == null) {
+            c = getConnection();
+        }
+        List<SalesEmployee> salesEmployees = new ArrayList<>();
+        try {
+            Statement s = c.createStatement();
+            ResultSet rows = s.executeQuery(
+                    "SELECT Employee.employee_id,first_name, last_name, nin, salary, department, email, phone_number, total_sales_monthly, commission FROM Employee JOIN Sales WHERE Employee.employee_id=Sales.employee_id;");
+            while (rows.next()) {
+                salesEmployees.add(new SalesEmployee(
+                        rows.getInt("employee_id"),
+                        rows.getString("first_name"),
+                        rows.getString("last_name"),
+                        rows.getString("nin"),
+                        rows.getFloat("salary"),
+                        rows.getString("department"),
+                        rows.getString("email"),
+                        rows.getString("phone_number"),
+                        rows.getFloat("commission"),
+                        rows.getFloat("total_sales_monthly")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return salesEmployees;
     }
 
     public static void main(String[] args) {
