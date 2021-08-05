@@ -33,7 +33,7 @@ public class SalesEmployee extends Employee implements Comparable<SalesEmployee>
 
     @Override
     public float calcPay() {
-        return super.calcPay() + Math.round(commissionRate * salesTotal);
+        return super.calcPay() + Math.round(commissionRate * salesTotal * 0.75);
     }
 
     @Override

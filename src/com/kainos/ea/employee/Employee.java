@@ -89,7 +89,7 @@ public class Employee {
     }
 
     public float calcPay(){
-        return salary/12;
+        return (float) ((salary/12)*0.75);
     }
 
 

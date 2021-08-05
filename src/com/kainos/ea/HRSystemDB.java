@@ -2,8 +2,10 @@ package com.kainos.ea;
 
 import com.kainos.ea.employee.Employee;
 import com.kainos.ea.employee.SalesEmployee;
+import com.kainos.ea.teams.FinanceTeam;
 import com.kainos.ea.teams.HRTeam;
 import com.kainos.ea.teams.SalesTeam;
+import com.kainos.ea.teams.TalentManager;
 import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import com.kainos.ea.teams.TalentTeam;
 
@@ -136,7 +138,7 @@ public class HRSystemDB {
         System.out.println("Salary: ");
         Float salary = Float.parseFloat(scanner.nextLine());
 
-        System.out.println("Department: "); //TODO enum
+        System.out.println("Department: ");
         String department = scanner.nextLine();
 
         System.out.println("Email: ");
@@ -220,26 +222,30 @@ public class HRSystemDB {
 
     }
     public static void main(String[] args) {
-        System.out.println("Welcome to the employee management system! You can exit anytime by typing exit!");
+        System.out.println("Welcome to the Employee Management System! You can exit anytime by typing exit!");
         Scanner userInput = new Scanner(System.in);
         String input = "";
 
-        while(!input.equalsIgnoreCase("exit")){
-            System.out.println("Please select a team 'Sales Team', 'Talent Team', 'HR Team' ");
+        while (!input.equalsIgnoreCase("exit")) {
+            System.out.println("Please select a team: (a) Sales Team, (b) HR Team, (c) Finance Team, (d) Talent Team");
             input = userInput.nextLine();
             System.out.println(input);
 
-            if (input.equalsIgnoreCase("sales team")) {
+            if (input.equalsIgnoreCase("a")) {
                 SalesTeam st = new SalesTeam();
                 st.handleUserInput();
                 
-            } else if (input.equalsIgnoreCase("hr team")) {
+            } else if (input.equalsIgnoreCase("b")) {
                 HRTeam hr = new HRTeam();
                 hr.handleUserInput();
                 
-            }else if (input.equalsIgnoreCase("talent team")){
-               TalentTeam tt = new TalentTeam();
-                tt.handleUserInput();
+
+            } else if (input.equalsIgnoreCase("c")) {
+                FinanceTeam ft = new FinanceTeam();
+                ft.handleUserInput();
+//            }   else if (input.equalsIgnoreCase("d")) {
+//                TalentTeam tt = new TalentTeam();
+//                tt.handleUserInput();
             }
         }
     }
