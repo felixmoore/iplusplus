@@ -91,4 +91,19 @@ public class Employee {
     public float calcPay(){
         return salary/12;
     }
+
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employee_id=" + employee_id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", nationalInsurance='" + nationalInsurance + '\'' +
+                ", salary=" + salary +
+                ", department='" + department + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }
