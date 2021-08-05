@@ -8,26 +8,27 @@ CREATE TABLE Employee (
     last_name VARCHAR(40) NOT NULL,
     nin CHAR(9),
     department ENUM('HR', 'Finance', 'Sales Team', 'Talent Manager', 'Technical'),
+    salary DECIMAL(7,2),
     email VARCHAR(50),
     adress VARCHAR(300),
     phone_number VARCHAR(15),
     PRIMARY KEY (employee_id)
 );
 
-insert into Employee (employee_id, first_name, last_name, nin, department, email, adress, phone_number) 
-VALUES (1, 'Aimee', 'Boyle', 123456789, 'Technical', 'aimee@email.com', 'Some Adress 11, City, 12345', '+441231231234' );
+insert into Employee (employee_id, first_name, last_name, nin, department, salary, email, adress, phone_number)
+VALUES (1, 'Aimee', 'Boyle', 123456789, 'Technical', 30000.00, 'aimee@email.com', 'Some Adress 11, City, 12345', '+441231231234' );
 
-insert into Employee (employee_id, first_name, last_name, nin, department, email, adress, phone_number) 
-VALUES (2, 'Sylwia', 'Łuczak-Jagieła', 987654321, 'HR', 'sylwia@email.com', 'My Adress 22, City, 54321', '+48987987987' );
+insert into Employee (employee_id, first_name, last_name, nin, department, salary, email, adress, phone_number)
+VALUES (2, 'Sylwia', 'Łuczak-Jagieła', 987654321, 'HR', 15000.00, 'sylwia@email.com', 'My Adress 22, City, 54321', '+48987987987' );
 
-insert into Employee (employee_id, first_name, last_name, nin, department, email, adress, phone_number) 
-VALUES (3, 'Adam', 'Jones', 999888777, 'Sales Team', 'adam@email.com', 'Adam Adress 33, Oxford, 33333', '+441111444666' );
+insert into Employee (employee_id, first_name, last_name, nin, department, salary, email, adress, phone_number)
+VALUES (3, 'Adam', 'Jones', 999888777, 'Sales Team', 20000.00, 'adam@email.com', 'Adam Adress 33, Oxford, 33333', '+441111444666' );
 
-insert into Employee (employee_id, first_name, last_name, nin, department, email, adress, phone_number) 
-VALUES (4, 'John', 'Doe', 666555666, 'Talent Manager', 'john@email.com', 'John Adress 4D, London, 23232', '+441888666444' );
+insert into Employee (employee_id, first_name, last_name, nin, department, salary, email, adress, phone_number)
+VALUES (4, 'John', 'Doe', 666555666, 'Talent Manager', 45000.00, 'john@email.com', 'John Adress 4D, London, 23232', '+441888666444' );
 
-insert into Employee (employee_id, first_name, last_name, nin, department, email, adress, phone_number) 
-VALUES (4, 'Zoe', 'Jackson', 777333111, 'Finance', 'zoe@email.com', 'Zoe Adress 433d/4, Leeds, 23232', '+441236543335' );
+insert into Employee (employee_id, first_name, last_name, nin, department, email, salary, adress, phone_number)
+VALUES (4, 'Zoe', 'Jackson', 777333111, 'Finance', 23000.00, 'zoe@email.com', 'Zoe Adress 433d/4, Leeds, 23232', '+441236543335' );
 
 DROP TABLE IF EXISTS BankDetails;
 
