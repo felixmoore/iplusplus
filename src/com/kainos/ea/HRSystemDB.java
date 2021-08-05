@@ -9,6 +9,7 @@ import com.kainos.ea.teams.TalentTeam;
 
 import java.io.FileInputStream;
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 /**
@@ -194,6 +195,30 @@ public class HRSystemDB {
 
     }
 
+    public static void addNewProject(ArrayList<Project> newProjectList) {
+        if (c == null) {
+            c = getConnection();
+        }
+        try {
+            assert c != null;
+            for(var project: newProjectList) {
+                PreparedStatement statement = c.prepareStatement(
+                        "INSERT INTO Projects (start_date, end_date, project_manager, description, name, customer_id, budget) VALUES(?, ?, ?, ?, ?, ?, ?)");
+                statement.setString(1, project.getStartDate());
+                statement.setString(2, project.getEndDate());
+                statement.setString(3, project.getProject_manager());
+                statement.setString(4, project.getDescription());
+                statement.setString(5, project.getName());
+                statement.setString(6, project.getCustomerId());
+                statement.setInt(7, project.getBudget());
+                statement.execute();
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("Projects did not add");
+        }
+
+    }
     public static void main(String[] args) {
         System.out.println("Welcome to the employee management system! You can exit anytime by typing exit!");
         Scanner userInput = new Scanner(System.in);

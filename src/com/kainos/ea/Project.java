@@ -12,11 +12,11 @@ public class Project {
     private String description;
     private Date startDate;
     private Date endDate;
-    private BigDecimal budget;
+    private int budget;
     private String project_manager;
     private String customerId;
 
-    public Project(int projectId, String name, String description, Date startDate, Date endDate, BigDecimal budget, String project_manager, String customerId) {
+    public Project(int projectId, String name, String description, Date startDate, Date endDate, int budget, String project_manager, String customerId) {
         this.projectId = projectId;
         this.name = name;
         this.description = description;
@@ -56,8 +56,9 @@ public class Project {
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getStartDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(startDate);
     }
 
     public void setStartDate(String startDate) {
@@ -72,8 +73,9 @@ public class Project {
         }
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getEndDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(endDate);
     }
 
     public void setEndDate(String endDate) {
@@ -89,15 +91,15 @@ public class Project {
         }
     }
 
-    public BigDecimal getBudget() {
+    public int getBudget() {
         return budget;
     }
 
     public void setBudget(String budget) {
         try {
-            this.budget = new BigDecimal(budget);
+            this.budget = Integer.parseInt(budget);
         } catch(Exception e){
-            System.out.println("Incorrect decimal format please try again ");
+            System.out.println("Incorrect format please try again ");
             Scanner userInput = new Scanner(System.in);
             String input = userInput.nextLine();
             setBudget(input);
