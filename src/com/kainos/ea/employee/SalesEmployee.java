@@ -1,6 +1,6 @@
 package com.kainos.ea.employee;
 
-public class SalesEmployee extends Employee {
+public class SalesEmployee extends Employee implements Comparable<SalesEmployee> {
     protected float commissionRate;
     protected float salesTotal;
 
@@ -8,7 +8,7 @@ public class SalesEmployee extends Employee {
                          String nationalInsurance, float salary, String department,
                          String email, String phoneNumber, float commissionRate, float salesTotal) {
 
-        super(employee_id, firstName, lastName, nationalInsurance,salary, department, email, phoneNumber);
+        super(employee_id, firstName, lastName, nationalInsurance, salary, department, email, phoneNumber);
 
         this.commissionRate = commissionRate;
         this.salesTotal = salesTotal;
@@ -38,7 +38,7 @@ public class SalesEmployee extends Employee {
 
     @Override
     public String toString() {
-        return "SalesEmployee{" +
+        return "SalesEmployee - " +
                 "employee_id=" + employee_id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -48,8 +48,13 @@ public class SalesEmployee extends Employee {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", commissionRate=" + commissionRate +
-                ", salesTotal=" + salesTotal +
-                '}';
+                ", salesTotal=" + salesTotal ;
+    }
+
+
+    @Override
+    public int compareTo(SalesEmployee salesEmployee) {
+        return Float.compare(this.getSalesTotal(), salesEmployee.getSalesTotal());
     }
 }
  

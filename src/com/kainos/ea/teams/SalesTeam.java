@@ -1,11 +1,14 @@
 package com.kainos.ea.teams;
 import com.kainos.ea.HRSystemDB;
 import com.kainos.ea.employee.SalesEmployee;
-import java.util.ArrayList;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
-public class SalesTeam {
-    private ArrayList<SalesEmployee> allSalesEmployees;
+public class SalesTeam{
+    private List<SalesEmployee> allSalesEmployees;
 
     public void handleUserInput(){
         System.out.println("Welcome to the sales team!");
@@ -19,7 +22,6 @@ public class SalesTeam {
                     "Get Highest Sales Total. Or type 'back' to return to main menu");
 
             input = userInput.nextLine();
-            System.out.println(input);
 
             if(input.equalsIgnoreCase("a")){
                 this.getHighestSalesTotal();
@@ -28,11 +30,12 @@ public class SalesTeam {
     }
 
     public void getAllSalesEmployees(){
-        HRSystemDB.getAllEmployees();
+        allSalesEmployees = HRSystemDB.getAllSalesEmployees();
     }
 
     public void getHighestSalesTotal(){
+        this.getAllSalesEmployees();
+        System.out.println(Collections.max(allSalesEmployees));
 
     }
-
 }

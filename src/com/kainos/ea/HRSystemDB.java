@@ -114,7 +114,7 @@ public class HRSystemDB {
         String input = "";
 
         while(!input.equalsIgnoreCase("exit")){
-            System.out.println("Please select a team 'Sales Team', 'HR Team");
+            System.out.println("Please select a team 'Sales Team'");
             input = userInput.nextLine();
             System.out.println(input);
 
