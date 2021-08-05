@@ -1,15 +1,14 @@
 package com.kainos.ea;
 
 import com.kainos.ea.employee.Employee;
+import com.kainos.ea.teams.SalesTeam;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Sets up database connection using stored credentials (from HRSystemDB.properties)
@@ -70,4 +69,22 @@ public class HRSystemDB {
         }
         return employees;
     }
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the employee management system? You can exit anytime by typing exit!");
+        Scanner userInput = new Scanner(System.in);
+        String input = "";
+
+        while(!input.equalsIgnoreCase("exit")){
+            System.out.println("Please select a team 'Sales Team', 'HR Team");
+            input = userInput.nextLine();
+            System.out.println(input);
+
+            if(input.equalsIgnoreCase("sales team")){
+                SalesTeam st = new SalesTeam();
+                st.handleUserInput();
+            }
+        }
+    }
+
 }
