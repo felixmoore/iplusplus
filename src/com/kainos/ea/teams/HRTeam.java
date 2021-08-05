@@ -2,10 +2,11 @@ package com.kainos.ea.teams;
 
 import com.kainos.ea.HRSystemDB;
 import com.kainos.ea.employee.Employee;
+import com.kainos.ea.employee.SalesEmployee;
 
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class HRTeam {
     private List<Employee> allEmployees;
@@ -42,9 +43,17 @@ public class HRTeam {
         }
     }
 
-    public void generateDepartmentReport(){
+    public void generateDepartmentReport(){ // Use case 2
         allEmployees = HRSystemDB.getAllEmployees();
+        Map<String, List<Employee>> streamedList = allEmployees.stream().collect(Collectors.groupingBy(Employee::getDepartment));
+        for (String key : streamedList.keySet()) {
+            System.out.println("");
+            System.out.println(streamedList.get(key).get(0).getDepartment()); //Print department
+            for (int i=0; i<streamedList.get(key).size(); i++) {
+                System.out.println(streamedList.get(key).get(i).getFirstName() + " " + streamedList.get(key).get(i).getLastName());
+            }
 
+        }
 
     }
 
