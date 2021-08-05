@@ -87,4 +87,8 @@ public class Employee {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public float calcPay(){
+        return salary/12;
+    }
 }
