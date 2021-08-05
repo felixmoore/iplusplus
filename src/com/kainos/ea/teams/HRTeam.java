@@ -18,14 +18,26 @@ public class HRTeam {
 
         while(!input.equalsIgnoreCase("back")){
             System.out.println("");
-            System.out.println("Type the letter for the functionality you would like (a) " +
-                    "Generate department report. Or type 'back' to return to main menu");
+            System.out.println("Type the letter for the functionality you would like \n(a) " +
+                    "Generate department report. \n" +
+                    "(b) Add a new employee. \n Or type 'back' to return to main menu");
 
             input = userInput.nextLine();
             System.out.println(input);
 
             if(input.equalsIgnoreCase("a")){
                 this.generateDepartmentReport();
+            } if (input.equalsIgnoreCase("b")){
+                System.out.println("");
+                System.out.println("What kind of employee would you like to add? \n" +
+                        "(a) Employee \n" +
+                        "(b) Sales Employee. \n Or type 'back' to return to main menu");
+                input = userInput.nextLine();
+                if (input.equalsIgnoreCase("a")){
+                    addNewEmployee();
+                } else if (input.equalsIgnoreCase("b")){
+                    addNewSalesEmployee();
+                }
             }
         }
     }
@@ -34,5 +46,17 @@ public class HRTeam {
         allEmployees = HRSystemDB.getAllEmployees();
 
 
+    }
+
+    public void addNewEmployee(){
+        System.out.println("");
+        System.out.println("Adding new Employee:");
+        HRSystemDB.addNewEmployee("Employee");
+    }
+
+    public void addNewSalesEmployee(){
+        System.out.println("");
+        System.out.println("Adding new Sales Employee:");
+        HRSystemDB.addNewEmployee("Sales");
     }
 }

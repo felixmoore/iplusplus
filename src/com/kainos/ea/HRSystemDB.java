@@ -2,18 +2,17 @@ package com.kainos.ea;
 
 import com.kainos.ea.employee.Employee;
 import com.kainos.ea.employee.SalesEmployee;
+import com.kainos.ea.teams.HRTeam;
 import com.kainos.ea.teams.SalesTeam;
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
 
 import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 /**
  * Sets up database connection using stored credentials (from HRSystemDB.properties)
- *
+ * <p>
  * From Jeremy's example
  */
 public class HRSystemDB {
@@ -36,7 +35,7 @@ public class HRSystemDB {
                                 "password, and host properties.");
             c = DriverManager.getConnection("jdbc:mysql://" + host +
                     "/HRSystem_iplusplus", user, password);
-            System.out.println(c);
+//            System.out.println(c);
             return c;
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,9 +45,10 @@ public class HRSystemDB {
 
     /**
      * Function to retrieve list of all employees in database.
+     *
      * @return List of all employees.
      */
-    public static List<Employee> getAllEmployees(){
+    public static List<Employee> getAllEmployees() {
         if (c == null) {
             c = getConnection();
         }
@@ -77,9 +77,10 @@ public class HRSystemDB {
 
     /**
      * Function to retrieve list of all sales employees in database.
+     *
      * @return List of all sales employees.
      */
-    public static List<SalesEmployee> getAllSalesEmployees(){
+    public static List<SalesEmployee> getAllSalesEmployees() {
         if (c == null) {
             c = getConnection();
         }
@@ -108,19 +109,106 @@ public class HRSystemDB {
         return salesEmployees;
     }
 
+    public static void addNewEmployee(String type) {
+        if (c == null) {
+
+            c = getConnection();
+
+        }
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("");
+        System.out.println("Employee ID: ");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("First Name: ");
+        String firstName = scanner.nextLine();
+
+        System.out.println("Last Name: ");
+        String lastName = scanner.nextLine();
+
+        System.out.println("National Insurance: ");
+        String nationalInsurance = scanner.nextLine();
+
+        System.out.println("Salary: ");
+        Float salary = Float.parseFloat(scanner.nextLine());
+
+        System.out.println("Department: "); //TODO enum
+        String department = scanner.nextLine();
+
+        System.out.println("Email: ");
+        String email = scanner.nextLine();
+
+        System.out.println("Phone number: ");
+        String phoneNumber = scanner.nextLine();
+
+        try {
+
+            PreparedStatement statement = c.prepareStatement(
+                    "INSERT INTO Employee(employee_id,first_name, last_name, nin, salary, department, email, phone_number) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+            statement.setInt(1, id);
+            statement.setString(2, firstName);
+            statement.setString(3, lastName);
+            statement.setString(4, nationalInsurance);
+            statement.setFloat(5, salary);
+            statement.setString(6, department);
+            statement.setString(7, email);
+            statement.setString(8, phoneNumber);
+
+            statement.execute();
+
+
+            if (type == "Sales") {
+                try {
+
+                    System.out.println("Commission rate: ");
+                    Float commission = Float.parseFloat(scanner.nextLine());
+
+
+                    statement = c.prepareStatement(
+                            "INSERT INTO Sales(total_sales_monthly, employee_id,commission) VALUES(0, ?, ?)");
+
+                    statement.setInt(1, id);
+                    statement.setFloat(2, commission);
+
+
+                    statement.execute();
+
+                    System.out.println("Sales employee creation successful.");
+                } catch (SQLException se) {
+                    System.out.println(se.getMessage());
+
+                }
+            } else if (type == "Technical") {
+                //TODO
+            } else if (type == "Employee") {
+                System.out.println("Employee creation successful.");
+            }
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+
+        }
+
+
+    }
+
     public static void main(String[] args) {
-        System.out.println("Welcome to the employee management system? You can exit anytime by typing exit!");
+        System.out.println("Welcome to the employee management system! You can exit anytime by typing exit!");
         Scanner userInput = new Scanner(System.in);
         String input = "";
 
-        while(!input.equalsIgnoreCase("exit")){
-            System.out.println("Please select a team 'Sales Team'");
+        while (!input.equalsIgnoreCase("exit")) {
+            System.out.println("Please select a team: 'Sales Team', 'HR Team'");
             input = userInput.nextLine();
             System.out.println(input);
 
-            if(input.equalsIgnoreCase("sales team")){
+            if (input.equalsIgnoreCase("sales team")) {
                 SalesTeam st = new SalesTeam();
                 st.handleUserInput();
+            } else if (input.equalsIgnoreCase("hr team")) {
+                HRTeam hr = new HRTeam();
+                hr.handleUserInput();
             }
         }
     }

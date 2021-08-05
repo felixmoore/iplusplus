@@ -18,8 +18,8 @@ public class SalesTeam{
 
         while(!input.equalsIgnoreCase("back")){
             System.out.println("");
-            System.out.println("Type the letter for the functionality you would like (a) " +
-                    "Get Highest Sales Total. Or type 'back' to return to main menu");
+            System.out.println("Type the letter for the functionality you would like: \n(a) " +
+                    "Get highest sales total. Or type 'back' to return to main menu");
 
             input = userInput.nextLine();
 
