@@ -35,7 +35,7 @@ public class SalesTeam{
 
     public void getHighestSalesTotal(){
         this.getAllSalesEmployees();
-        System.out.println((Collections.max(allSalesEmployees)).highestSalestoString());
+        System.out.println(Collections.max(allSalesEmployees).highestSalestoString());
 
     }
 

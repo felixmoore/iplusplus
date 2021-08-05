@@ -1,7 +1,10 @@
 package com.kainos.ea;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Project {
     private int projectId;
@@ -11,8 +14,9 @@ public class Project {
     private Date endDate;
     private BigDecimal budget;
     private String project_manager;
+    private String customerId;
 
-    public Project(int projectId, String name, String description, Date startDate, Date endDate, BigDecimal budget, String project_manager) {
+    public Project(int projectId, String name, String description, Date startDate, Date endDate, BigDecimal budget, String project_manager, String customerId) {
         this.projectId = projectId;
         this.name = name;
         this.description = description;
@@ -20,6 +24,11 @@ public class Project {
         this.endDate = endDate;
         this.budget = budget;
         this.project_manager = project_manager;
+        this.customerId = customerId;
+    }
+
+    public Project() {
+
     }
 
 
@@ -51,24 +60,48 @@ public class Project {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartDate(String startDate) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            this.startDate = format.parse(startDate);
+        } catch(ParseException e) {
+            System.out.println("Incorrect date format please try format yyyy-MM-dd ");
+            Scanner userInput = new Scanner(System.in);
+            String input = userInput.nextLine();
+            setStartDate(input);
+        }
     }
 
     public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndDate(String endDate) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            this.endDate = format.parse(endDate);
+
+        } catch(ParseException e) {
+            System.out.println("Incorrect date format please try format yyyy-MM-dd ");
+            Scanner userInput = new Scanner(System.in);
+            String input = userInput.nextLine();
+            setEndDate(input);
+        }
     }
 
     public BigDecimal getBudget() {
         return budget;
     }
 
-    public void setBudget(BigDecimal budget) {
-        this.budget = budget;
+    public void setBudget(String budget) {
+        try {
+            this.budget = new BigDecimal(budget);
+        } catch(Exception e){
+            System.out.println("Incorrect decimal format please try again ");
+            Scanner userInput = new Scanner(System.in);
+            String input = userInput.nextLine();
+            setBudget(input);
+        }
     }
 
     public String getProject_manager() {
@@ -77,6 +110,14 @@ public class Project {
 
     public void setProject_manager(String project_manager) {
         this.project_manager = project_manager;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     @Override

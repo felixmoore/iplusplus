@@ -5,6 +5,7 @@ import com.kainos.ea.employee.SalesEmployee;
 import com.kainos.ea.teams.HRTeam;
 import com.kainos.ea.teams.SalesTeam;
 import com.mysql.cj.x.protobuf.MysqlxPrepare;
+import com.kainos.ea.teams.TalentTeam;
 
 import java.io.FileInputStream;
 import java.sql.*;
@@ -198,17 +199,22 @@ public class HRSystemDB {
         Scanner userInput = new Scanner(System.in);
         String input = "";
 
-        while (!input.equalsIgnoreCase("exit")) {
-            System.out.println("Please select a team: 'Sales Team', 'HR Team'");
+        while(!input.equalsIgnoreCase("exit")){
+            System.out.println("Please select a team 'Sales Team', 'Talent Team', 'HR Team' ");
             input = userInput.nextLine();
             System.out.println(input);
 
             if (input.equalsIgnoreCase("sales team")) {
                 SalesTeam st = new SalesTeam();
                 st.handleUserInput();
+                
             } else if (input.equalsIgnoreCase("hr team")) {
                 HRTeam hr = new HRTeam();
                 hr.handleUserInput();
+                
+            }else if (input.equalsIgnoreCase("talent team")){
+               TalentTeam tt = new TalentTeam();
+                tt.handleUserInput();
             }
         }
     }
