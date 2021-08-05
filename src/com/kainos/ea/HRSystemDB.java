@@ -210,7 +210,7 @@ public class HRSystemDB {
                 statement.setString(4, project.getDescription());
                 statement.setString(5, project.getName());
                 statement.setString(6, project.getCustomerId());
-                statement.setInt(7, project.getBudget());
+                statement.setShort(7, (short) project.getBudget());
                 statement.execute();
             }
         }catch(SQLException e){
