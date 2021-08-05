@@ -4,6 +4,7 @@ import com.kainos.ea.HRSystemDB;
 import com.kainos.ea.employee.Employee;
 
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,14 +26,26 @@ public class HRTeam {
             System.out.println(input);
 
             if(input.equalsIgnoreCase("a")){
-                this.generateDepartmentReport();
+                System.out.println("Enter project name");
+                input = userInput.nextLine();
+
+                this.generateDepartmentReport(input);
             }
         }
     }
 
-    public void generateDepartmentReport(){
+    public void generateDepartmentReport(String project){
         allEmployees = HRSystemDB.getAllEmployees();
+        int isAssigned = 0;
+        int onProject = 0;
 
 
+        for (Employee employee: allEmployees) {
+            if(employee.getDepartment().equalsIgnoreCase(project)){
+                onProject++;
+                System.out.println(employee.toStringforReport());
+            }
+        }
+        System.out.println("On " + project.toUpperCase() + " there are " + onProject + " employees");
     }
 }

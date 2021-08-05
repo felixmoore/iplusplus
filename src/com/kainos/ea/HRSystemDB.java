@@ -2,6 +2,7 @@ package com.kainos.ea;
 
 import com.kainos.ea.employee.Employee;
 import com.kainos.ea.employee.SalesEmployee;
+import com.kainos.ea.teams.HRTeam;
 import com.kainos.ea.teams.SalesTeam;
 
 import java.io.FileInputStream;
@@ -75,6 +76,35 @@ public class HRSystemDB {
         return employees;
     }
 
+    public static List<Employee> getAllEmployeesOnProject(String projectName){
+        if (c == null) {
+            c = getConnection();
+        }
+        List<Employee> employees = new ArrayList<>();
+        try {
+            Statement s = c.createStatement();
+            ResultSet rows = s.executeQuery(
+                    "SELECT employee_id AS `ID`,first_name, last_name, nin, salary, department, email, phone_number FROM Employee WHERE department = " + "\"" + projectName + "\"" + ";");
+            while (rows.next()) {
+                employees.add(new Employee(
+                        rows.getInt("ID"),
+                        rows.getString("first_name"),
+                        rows.getString("last_name"),
+                        rows.getString("nin"),
+                        rows.getFloat("salary"),
+                        rows.getString("department"),
+                        rows.getString("email"),
+                        rows.getString("phone_number")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
+
+
     /**
      * Function to retrieve list of all sales employees in database.
      * @return List of all sales employees.
@@ -114,13 +144,17 @@ public class HRSystemDB {
         String input = "";
 
         while(!input.equalsIgnoreCase("exit")){
-            System.out.println("Please select a team 'Sales Team'");
+            System.out.println("Please select a team 'Sales Team', 'HR'");
             input = userInput.nextLine();
             System.out.println(input);
 
             if(input.equalsIgnoreCase("sales team")){
                 SalesTeam st = new SalesTeam();
                 st.handleUserInput();
+            }
+            if(input.equalsIgnoreCase("HR")){
+                HRTeam hr = new HRTeam();
+                hr.handleUserInput();
             }
         }
     }

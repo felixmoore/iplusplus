@@ -106,4 +106,9 @@ public class Employee {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
+
+    public String toStringforReport() {
+        return "employee: " + employee_id +
+                ", " + firstName + " " + lastName + ", " + email + " " + phoneNumber;
+    }
 }
