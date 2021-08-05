@@ -1,17 +1,11 @@
 package com.kainos.ea;
-
 import com.kainos.ea.employee.Employee;
 import com.kainos.ea.employee.SalesEmployee;
 import com.kainos.ea.teams.FinanceTeam;
 import com.kainos.ea.teams.HRTeam;
 import com.kainos.ea.teams.SalesTeam;
-import com.kainos.ea.teams.TalentManager;
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
-import com.kainos.ea.teams.TalentTeam;
-
 import java.io.FileInputStream;
 import java.sql.*;
-import java.sql.Date;
 import java.util.*;
 
 /**
@@ -58,6 +52,7 @@ public class HRSystemDB {
         }
         List<Employee> employees = new ArrayList<>();
         try {
+            assert c != null;
             Statement s = c.createStatement();
             ResultSet rows = s.executeQuery(
                     "SELECT employee_id AS `ID`,first_name, last_name, nin, salary, department, email, phone_number FROM Employee;");
