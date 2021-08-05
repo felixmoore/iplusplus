@@ -56,5 +56,11 @@ public class SalesEmployee extends Employee implements Comparable<SalesEmployee>
     public int compareTo(SalesEmployee salesEmployee) {
         return Float.compare(this.getSalesTotal(), salesEmployee.getSalesTotal());
     }
+
+    public String highestSalestoString(){
+        return "Highest Sale employee: " + "employee_id=" + getEmployee_id() +
+                ", " + firstName + " " + lastName + " with " +
+                salesTotal + " sales in total";
+    }
 }
  
